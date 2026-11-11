@@ -1,6 +1,6 @@
 #define SLIMR_TEST_MAIN
-#include "slimr/test.hpp"
-#include "slimr/encoding.hpp"
+#include "test.hpp"
+#include "encoding.hpp"
 
 using namespace slimr;
 
