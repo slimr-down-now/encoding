@@ -12,7 +12,7 @@ namespace slimr {
 inline std::string hex_encode(std::string_view in, bool uppercase = false) {
     static constexpr char hex_lower[] = "0123456789abcdef";
     static constexpr char hex_upper[] = "0123456789ABCDEF";
-    const char* table = uppercase ? hex_upper : hex_lower;
+    const char *table = uppercase ? hex_upper : hex_lower;
     std::string out;
     out.reserve(in.size() * 2);
     for (unsigned char c : in) {
@@ -27,9 +27,12 @@ inline std::expected<std::string, std::string> hex_decode(std::string_view in) {
         return std::unexpected("Odd number of hexadecimal digits");
     }
     auto hex_val = [](char c) -> int {
-        if (c >= '0' && c <= '9') return c - '0';
-        if (c >= 'a' && c <= 'f') return c - 'a' + 10;
-        if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+        if (c >= '0' && c <= '9')
+            return c - '0';
+        if (c >= 'a' && c <= 'f')
+            return c - 'a' + 10;
+        if (c >= 'A' && c <= 'F')
+            return c - 'A' + 10;
         return -1;
     };
     std::string out;
@@ -105,11 +108,16 @@ inline std::string base64url_encode(std::string_view in, bool pad = false) {
 
 namespace detail {
 inline int b64_char_to_val(unsigned char c) {
-    if (c >= 'A' && c <= 'Z') return c - 'A';
-    if (c >= 'a' && c <= 'z') return c - 'a' + 26;
-    if (c >= '0' && c <= '9') return c - '0' + 52;
-    if (c == '+' || c == '-') return 62;
-    if (c == '/' || c == '_') return 63;
+    if (c >= 'A' && c <= 'Z')
+        return c - 'A';
+    if (c >= 'a' && c <= 'z')
+        return c - 'a' + 26;
+    if (c >= '0' && c <= '9')
+        return c - '0' + 52;
+    if (c == '+' || c == '-')
+        return 62;
+    if (c == '/' || c == '_')
+        return 63;
     return -1;
 }
 } // namespace detail
@@ -120,8 +128,10 @@ inline std::expected<std::string, std::string> base64_decode(std::string_view in
     uint32_t val = 0;
     int valb = -8;
     for (char c : in) {
-        if (c == '=') break;
-        if (c == ' ' || c == '\t' || c == '\r' || c == '\n') continue;
+        if (c == '=')
+            break;
+        if (c == ' ' || c == '\t' || c == '\r' || c == '\n')
+            continue;
         int d = detail::b64_char_to_val(static_cast<unsigned char>(c));
         if (d == -1) {
             return std::unexpected(std::string("Invalid base64 character: '") + c + "'");
