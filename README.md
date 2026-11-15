@@ -58,13 +58,31 @@ int main() {
 | `base64_decode` | `inline std::expected<std::string, std::string> base64_decode(std::string_view in)` | Decodes standard or URL-safe Base64 string within `std::expected`. |
 | `base64url_decode` | `inline std::expected<std::string, std::string> base64url_decode(std::string_view in)` | Convenience alias for `base64_decode`. |
 
-## Build & Test
+## Install
 
-This folder owns its header, `test.cpp`, CMake target/config, manifest, port recipe and licenses. See the [integration guide](../../README.md#integration-vcpkg--cmakeninja).
+Add `bdombro/slimr-encoding` to `vcpkg-configuration.json`:
 
-```bash
-just test-pkg encoding  # From the repository root; automatic native deps + ASan/UBSan
-just build             # All optimized Release suites
+```json
+{
+  "kind": "git",
+  "repository": "https://github.com/bdombro/slimr-encoding",
+  "baseline": "<commit-sha>",
+  "packages": [
+    "slimr-encoding"
+  ]
+}
 ```
 
-Generated output stays under root `build/deps/` and `build/cmake/{Debug,Release}/`. Consumers link `slimr::encoding` from `find_package(slimr-encoding CONFIG REQUIRED)`. The optional manifest `tests` feature keeps test dependencies out of production consumption.
+Declare `slimr-encoding` in `vcpkg.json` and link `slimr::encoding` in `CMakeLists.txt`:
+
+```cmake
+find_package(slimr-encoding CONFIG REQUIRED)
+target_link_libraries(my_target PRIVATE slimr::encoding)
+```
+
+## Build & Test
+
+```bash
+just test   # Debug build (ASan + UBSan) and run tests
+just build  # Optimized Release build
+```
