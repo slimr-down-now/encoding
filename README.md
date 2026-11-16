@@ -12,12 +12,12 @@ Borrowed directly from the design of [`@slimr/encoding`](https://www.npmjs.com/p
 
 ## Install
 
-Add `bdombro/slimr-encoding` to `vcpkg-configuration.json`:
+Add `slimr-down-now/encoding` to `vcpkg-configuration.json`:
 
 ```json
 {
   "kind": "git",
-  "repository": "https://github.com/bdombro/slimr-encoding",
+  "repository": "https://github.com/slimr-down-now/encoding",
   "baseline": "<commit-sha>",
   "packages": [
     "slimr-encoding"
