@@ -1,4 +1,4 @@
-# slimr::encoding (`packages/encoding`)
+# slimr::encoding
 
 Fast, clean C++26 binary encoding and decoding library for Hex, Base64, and Base64URL (RFC 4648), featuring `std::expected` error handling.
 
@@ -10,7 +10,27 @@ Borrowed directly from the design of [`@slimr/encoding`](https://www.npmjs.com/p
 - **Robust `std::expected` Validation:** Decoders catch malformed hex digits or invalid base64 characters cleanly without exceptions.
 - **URL-safe Base64URL:** Native support for RFC 4648 Base64URL encoding (`-` and `_`) with optional padding.
 
----
+## Install
+
+Add `bdombro/slimr-encoding` to `vcpkg-configuration.json`:
+
+```json
+{
+  "kind": "git",
+  "repository": "https://github.com/bdombro/slimr-encoding",
+  "baseline": "<commit-sha>",
+  "packages": [
+    "slimr-encoding"
+  ]
+}
+```
+
+Declare `slimr-encoding` in `vcpkg.json` and link `slimr::encoding` in `CMakeLists.txt`:
+
+```cmake
+find_package(slimr-encoding CONFIG REQUIRED)
+target_link_libraries(my_target PRIVATE slimr::encoding)
+```
 
 ## Quick Start
 
@@ -58,31 +78,12 @@ int main() {
 | `base64_decode` | `inline std::expected<std::string, std::string> base64_decode(std::string_view in)` | Decodes standard or URL-safe Base64 string within `std::expected`. |
 | `base64url_decode` | `inline std::expected<std::string, std::string> base64url_decode(std::string_view in)` | Convenience alias for `base64_decode`. |
 
-## Install
+## Environment Variables
 
-Add `bdombro/slimr-encoding` to `vcpkg-configuration.json`:
+| Name | Required | Purpose |
+| --- | --- | --- |
+| *(none)* | — | — |
 
-```json
-{
-  "kind": "git",
-  "repository": "https://github.com/bdombro/slimr-encoding",
-  "baseline": "<commit-sha>",
-  "packages": [
-    "slimr-encoding"
-  ]
-}
-```
+## Development
 
-Declare `slimr-encoding` in `vcpkg.json` and link `slimr::encoding` in `CMakeLists.txt`:
-
-```cmake
-find_package(slimr-encoding CONFIG REQUIRED)
-target_link_libraries(my_target PRIVATE slimr::encoding)
-```
-
-## Build & Test
-
-```bash
-just test   # Debug build (ASan + UBSan) and run tests
-just build  # Optimized Release build
-```
+See [docs/development.md](docs/development.md) for building, testing, linting, and releasing.
