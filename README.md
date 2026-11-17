@@ -78,6 +78,20 @@ int main() {
 | `base64_decode` | `inline std::expected<std::string, std::string> base64_decode(std::string_view in)` | Decodes standard or URL-safe Base64 string within `std::expected`. |
 | `base64url_decode` | `inline std::expected<std::string, std::string> base64url_decode(std::string_view in)` | Convenience alias for `base64_decode`. |
 
+## Develop against an unreleased lib
+
+Add `"overlay-ports"` to the consumer's `vcpkg-configuration.json`, then run `just test` or `just build` as usual (add one entry per unreleased lib):
+
+```json
+{
+  "overlay-ports": [
+    "<relative path to ~/dev/slimr/<name>/ports/slimr-<name>>"
+  ]
+}
+```
+
+Remove `"overlay-ports"` and bump the registry baseline once the lib is released. Never commit or release with `overlay-ports` set.
+
 ## Environment Variables
 
 | Name | Required | Purpose |
