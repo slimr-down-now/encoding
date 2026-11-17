@@ -1,6 +1,6 @@
 {
   "name": "slimr-encoding",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Header-only Base64, Base64url and hex encoding",
   "features": {
     "tests": {
